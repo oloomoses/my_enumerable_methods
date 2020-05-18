@@ -6,7 +6,11 @@ module Enumerable
     end
   end
   
-  
+  def my_each_with_index(array)
+    for element in array do
+      yield array.index(element), element
+    end
+  end
 
 end
 
