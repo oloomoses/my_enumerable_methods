@@ -11,7 +11,16 @@ module Enumerable
       yield element, array.index(element)
     end
   end
-  
+
+  def my_select(array)
+    result = []
+    my_each(array) do |element|
+      if (yield element)
+        result << element        
+      end
+    end
+    puts result
+  end
 
   def my_all()?
   end
