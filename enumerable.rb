@@ -12,6 +12,16 @@ module Enumerable
     end
   end
 
+  def my_select
+    result = []
+    self.my_each do |element|
+      if (yield element)
+        result << element        
+      end
+    end
+    puts result
+  end
+
   
 
   # def my_any?()
