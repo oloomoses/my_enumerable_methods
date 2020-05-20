@@ -22,7 +22,15 @@ module Enumerable
     puts result
   end
 
-  
+  def my_all?
+    result = false
+    self.my_each do |element|
+      if (yield element)
+        result = true if element == true
+      end
+    end
+    puts result
+  end
 
   # def my_any?()
   # end
