@@ -1,43 +1,29 @@
 module Enumerable
 
-  def my_each(array)
-    for element in array do
+  def my_each
+    for element in self
       yield element
     end
   end
 
-  def my_each_with_index(array)
-    for element in array do
-      yield element, array.index(element)
+  def my_each_with_index
+    self.my_each do |value, index|
+      yield value, self.index(value)
     end
   end
 
-  def my_select(array)
-    result = []
-    my_each(array) do |element|
-      if (yield element)
-        result << element        
-      end
-    end
-    puts result
-  end
+  
 
-  def my_all()?
-  end
+  # def my_any?()
+  # end
 
-  def my
+  # def my_none?()
+  # end
 
 end
 
-include Enumerable
 array = %w[this is a beautiful array of strings]
 
-
-
-# Enumerable.my_each(array) do |k|
-#   puts k
-# end
-
-Enumerable.my_select(array) do |val|
-  val != "beautiful"
+array.my_all? do |val|
+  val.size >= 1
 end
