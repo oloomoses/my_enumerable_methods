@@ -31,10 +31,16 @@ module Enumerable
   end
 
   # def my_any?()
+    
   # end
 
-  # def my_none?()
-  # end
+  def my_none?(&block)
+    result = false
+    self.my_each do |element|
+      result = true unless block.call(element)
+    end
+    puts result  
+  end
 
 end
 
