@@ -22,12 +22,10 @@ module Enumerable
     puts result
   end
 
-  def my_all?
-    result = false
+  def my_all?(&block)
+    result = true
     self.my_each do |element|
-      if (yield element)
-        result = true if element == true
-      end
+      result = false unless block.call(element)
     end
     puts result
   end
@@ -43,5 +41,5 @@ end
 array = %w[this is a beautiful array of strings]
 
 array.my_all? do |val|
-  val.size >= 1
+ val.length > 1
 end
