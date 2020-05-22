@@ -42,6 +42,13 @@ module Enumerable
     puts result  
   end
 
+  def my_map(&block)
+    result = []
+    self.my_each do |element|
+      result << block.call(element)
+    end
+    retult
+  end
 end
 
 array = %w[this is a beautiful array of strings]
