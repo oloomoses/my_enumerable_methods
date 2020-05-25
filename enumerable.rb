@@ -25,22 +25,36 @@ module Enumerable
     puts result
   end
 
-  def my_all?(arg = nil)
-    if !block_given? && arg.nil?
-      my_each { |element| return false unless element }
-      break
-    end
+  def my_all?
     result = true
     my_each do |element|
-      result = false unless yield element
-    end
+      if block_given?
+        result = false unless yield element
+      else
+        result = false if element == nil || element == false
+      end
+    end    
     puts result
   end
 
-  def my_count?(&block)
+  # if block_given?
+  #   my_each { |element|  }
+  # elsif arg
+  #   my_each { |element| result = false unless element == arg }
+  # else
+  #   my_each { |element| result = false unless element }
+  # end
+  
+  def my_count?(arg = nil)
     count = 0
     my_each do |element|
-      count += 1 if block.call(element)      
+      if block_given?
+        count += 1 if yield element
+      elsif arg
+        count += 1 if element == arg
+      else
+        count += 1 if element
+      end
     end
     puts count
   end
@@ -68,6 +82,7 @@ module Enumerable
   end
 
   def my_map(&block)
+    return enum_for unless block_given?
     result = []
     my_each do |element|
       result << block.call(element)      
@@ -76,6 +91,7 @@ module Enumerable
   end
 end
 
-array = %w[this is a beautiful array of strings]
+array = %w[this is false a beautiful array of strings]
 
-array.my_all?(true)
+array3 = [1, 33] 
+array3.my_all?{ |element| element.is_a? Integer}
