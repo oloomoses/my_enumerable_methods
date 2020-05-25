@@ -36,16 +36,8 @@ module Enumerable
     end    
     puts result
   end
-
-  # if block_given?
-  #   my_each { |element|  }
-  # elsif arg
-  #   my_each { |element| result = false unless element == arg }
-  # else
-  #   my_each { |element| result = false unless element }
-  # end
   
-  def my_count?(arg = nil)
+  def my_count(arg = nil)
     count = 0
     my_each do |element|
       if block_given?
@@ -60,17 +52,15 @@ module Enumerable
   end
 
   def my_any?(&block)
-    result = []
+    result = false
     my_each do |element|
-      result << block.call(element) 
+      if block_given?
+        result = true unless block.call(element) == false || block.call(element) == nil
+      else
+        result = true if element
+      end
     end
-
-    if result.count(true) >= 1
-      puts true
-    else
-      puts false
-    end
-    
+    puts result
   end
 
   def my_none?(&block)
@@ -91,7 +81,18 @@ module Enumerable
   end
 end
 
-array = %w[this is false a beautiful array of strings]
+# array = %w[this is false a beautiful array of strings]
 
-array3 = [1, 33] 
-array3.my_all?{ |element| element.is_a? Integer}
+# array3 = [1, 33] 
+# array3.my_all?{ |element| element.is_a? Integer}
+
+
+array = [nil, false, false]
+
+result = false
+
+for i in array
+  result = true if i
+end
+
+puts result
