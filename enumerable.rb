@@ -83,18 +83,25 @@ module Enumerable
     end
     retult
   end
+
+  def my_inject(initial = 0, operand = nil)
+    
+    my_each do |element|
+      if block_given?
+        initial = yield(initial, element)
+      elsif initial && operand
+        initial = init operand element
+      end
+    end 
+    puts initial   
+  end
 end
 
-# array = %w[this is false a beautiful array of strings]
+array = [3, 4, 3, 2, 1]
 
-# array3 = [1, 33] 
-# array3.my_all?{ |element| element.is_a? Integer}
+array.my_inject(2, *)
 
-
-
-%w{ant bear cat}.my_none? { |word| word.length == 5 } #=> true
-p "-------------"
-%w{ant bear cat}.my_none? { |word| word.length >= 4 } #=> false
-[].my_none?                                           #=> true
-[nil].my_none?                                        #=> true
-[nil, false].my_none?                                 #=> true
+# longest = %w{ cat sheep bear }.my_inject do |memo, word|
+#   memo.length > word.length ? memo : word
+# end
+# longest 
