@@ -31,7 +31,7 @@ module Enumerable
       if block_given?
         result = false unless yield element
       else
-        result = false if element == nil || element == false
+        result = true if element
       end
     end    
     puts result
@@ -51,24 +51,28 @@ module Enumerable
     puts count
   end
 
-  def my_any?(&block)
+  def my_any?
     result = false
     my_each do |element|
       if block_given?
-        result = true unless block.call(element) == false || block.call(element) == nil
+        result = true if yield element 
       else
-        result = true if element
+        result = true if element || self[]
       end
     end
     puts result
   end
 
-  def my_none?(&block)
-    result = false
+  def my_none?
+    result = true
     my_each do |element|
-      result = true unless block.call(element)
+      if block_given?
+        result = false if yield element
+      else
+        result = false if element
+      end
     end
-    puts result  
+    puts result 
   end
 
   def my_map(&block)
@@ -87,12 +91,10 @@ end
 # array3.my_all?{ |element| element.is_a? Integer}
 
 
-array = [nil, false, false]
 
-result = false
-
-for i in array
-  result = true if i
-end
-
-puts result
+%w{ant bear cat}.my_none? { |word| word.length == 5 } #=> true
+p "-------------"
+%w{ant bear cat}.my_none? { |word| word.length >= 4 } #=> false
+[].my_none?                                           #=> true
+[nil].my_none?                                        #=> true
+[nil, false].my_none?                                 #=> true
