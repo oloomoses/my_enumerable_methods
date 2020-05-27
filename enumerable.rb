@@ -75,24 +75,29 @@ module Enumerable
     result 
   end
 
-  def my_map(&block)
+  def my_map(proc = nil)
     return enum_for unless block_given?
     result = []
     my_each do |element|
-      result << block.call(element)      
+      if proc
+        result << yield(element)
+      else        
+        result << proc.call(element)
+      end
     end
     retult
   end
 
   def my_inject(init = nil, operand = nil, &block)
     block = operand.to_proc if operand.is_a?(Symbol)
-
     block, init = init.to_proc, nil if init.is_a?(Symbol) && !operand
 
     my_each { |element| init = init.nil? ? element : block.call(init,element)}
     init
-  end
+  end  
 end
 
-array = [3, 4, 3, 2, 1]
+def multiply_els(array)
+  array.my_inject(:*)
+end
 

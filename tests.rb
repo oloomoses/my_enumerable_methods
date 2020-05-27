@@ -61,3 +61,8 @@ puts "*" * 50
 puts "My Inject method \n"
 puts (1...10).my_inject(:+)
 puts "\n"
+
+puts "*" * 50
+puts "multiply_els([2,4,5]) \n"
+puts multiply_els([2,4,5])
+puts "\n"
