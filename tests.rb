@@ -10,7 +10,7 @@ days_of_the_week = {
   sun: "Sunday"
 }
 
-a = [ "a", "b", "c", "d" ]
+a = ["a", "b", "c", "d"]
 
 puts "*" * 50
 puts "my each method"
@@ -20,7 +20,7 @@ puts "\n"
 puts "*" * 50
 puts "my_each_with_index \n"
 hash = Hash.new
-%w(cat dog wombat).my_each_with_index {|item, index|
+%w(cat dog wombat).my_each_with_index { |item, index|
   hash[item] = index
 }
 puts hash
@@ -28,7 +28,7 @@ puts "\n"
 
 puts "*" * 50
 puts "my select method \n"
-puts [1,2,3,4,5].my_select { |num| num.even? }
+puts [1, 2, 3, 4, 5].my_select { |num| num.even? }
 puts "\n"
 
 puts "*" * 50
@@ -54,7 +54,7 @@ puts "\n"
 
 puts "*" * 50
 puts "my map \n"
-p a.collect { |x| x + "!" }  
+p a.collect { |x| x + "!" }
 puts "\n"
 
 puts "*" * 50
@@ -64,5 +64,5 @@ puts "\n"
 
 puts "*" * 50
 puts "multiply_els([2,4,5]) \n"
-puts multiply_els([2,4,5])
+puts multiply_els([2, 4, 5])
 puts "\n"

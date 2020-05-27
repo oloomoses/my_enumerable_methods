@@ -1,26 +1,33 @@
 module Enumerable
-
   def my_each
     return enum_for unless block_given?
-    for element in self
-      yield element
+
+    i = 0
+    array = self
+    while i < size
+      yield array[i] if is_a?(Array)
+      yield to_a[i] if is_a?(Range)
+      yield to_a[i] if is_a?(Hash)
+      i += 1
     end
+    array
   end
 
   def my_each_with_index
     return to_enum(:my_each_with_index) unless block_given?
-    self.my_each do |value, index|
-      yield value, self.index(value)
+
+    array = self
+    my_each do |value|
+      yield value, array.index(value)
     end
   end
 
   def my_select
     return to_enum(:my_select) unless block_given?
+
     result = []
     my_each do |element|
-      if yield element
-        result << element        
-      end
+      result << element if yield element
     end
     result
   end
@@ -30,13 +37,15 @@ module Enumerable
     my_each do |element|
       if block_given?
         result = false unless yield element
+      elsif element
+        result = true
       else
-        result = true if element
+        result = false
       end
-    end    
+    end
     result
   end
-  
+
   def my_count(arg = nil)
     count = 0
     my_each do |element|
@@ -44,20 +53,20 @@ module Enumerable
         count += 1 if yield element
       elsif arg
         count += 1 if element == arg
-      else
-        count += 1 if element
+      elsif element
+        count += 1
       end
     end
-   count
+    count
   end
 
   def my_any?
     result = false
     my_each do |element|
       if block_given?
-        result = true if yield element 
-      else
-        result = true if element || self[]
+        result = true if yield element
+      elsif element || self[]
+        result = true
       end
     end
     result
@@ -68,36 +77,36 @@ module Enumerable
     my_each do |element|
       if block_given?
         result = false if yield element
-      else
-        result = false if element
+      elsif element
+        result = false
       end
     end
-    result 
+    result
   end
 
   def my_map(proc = nil)
     return enum_for unless block_given?
+
     result = []
     my_each do |element|
-      if proc
-        result << yield(element)
-      else        
-        result << proc.call(element)
-      end
+      result << yield(element) unless proc
+      result << proc.call(element) if proc
     end
     retult
   end
 
   def my_inject(init = nil, operand = nil, &block)
     block = operand.to_proc if operand.is_a?(Symbol)
-    block, init = init.to_proc, nil if init.is_a?(Symbol) && !operand
+    if init.is_a?(Symbol) && !operand
+      block = init.to_proc
+      init = nil
+    end
 
-    my_each { |element| init = init.nil? ? element : block.call(init,element)}
+    my_each { |element| init = init.nil? ? element : block.call(init, element) }
     init
-  end  
+  end
 end
 
 def multiply_els(array)
   array.my_inject(:*)
 end
-
