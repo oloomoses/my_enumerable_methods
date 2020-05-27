@@ -10,10 +10,6 @@ days_of_the_week = {
   sun: 'Sunday'
 }
 
-a = %w[a b c d e f]
-array1 = %w[ant bear cat]
-array2 = [1, 2, 3, 4, 5, 6]
-
 puts '*' * 50
 puts "my each method \n"
 (1..5).my_each { |element| p element }
@@ -27,34 +23,8 @@ puts hash
 puts '\n'
 
 puts '*' * 50
-puts "my select method \n"
-puts array2.my_select { |num| num.even? }
-puts '\n'
-
-puts '*' * 50
-puts "my all \n"
-puts array1.my_all? { |word| word.length >= 4 }
-puts array1.my_all? { |word| word.length >= 3 }
-puts '\n'
-
-puts '*' * 50
-puts "my any \n"
-puts array1.my_any? { |word| word.length >= 3 }
-puts '\n'
-
-puts '*' * 50
-puts "my none \n"
-puts %w[ant bear cat].my_none? { |word| word.length >= 4 }
-puts '\n'
-
-puts '*' * 50
 puts "my count \n"
 puts days_of_the_week.my_count
-puts '\n'
-
-puts '*' * 50
-puts "my map \n"
-p a.collect { |x| x + '!' }
 puts '\n'
 
 puts '*' * 50
