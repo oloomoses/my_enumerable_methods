@@ -11,8 +11,9 @@ the enumerables methods that I have created are:
   - my_none?
   - my_count
   - my_any?
-  - my_inject; with its testing method called multiply_els that return the multiples of the array.
+  - my_inject; with its testing method called multiply_els that multiplies all the elements of the array and returns the result.
   - my_map; it accepts either a proc or block.
+  
 I have also created a tests.rb script for testing my_enumerable methods  
 
 ## Built With
