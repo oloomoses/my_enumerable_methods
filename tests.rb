@@ -13,21 +13,21 @@ days_of_the_week = {
 puts '*' * 50
 puts "my each method \n"
 (1..5).my_each { |element| p element }
-puts '\n'
+puts "\n"
 
 puts '*' * 50
 puts "my_each_with_index \n"
 hash = {}
 %w[cat dog wombat].my_each_with_index { |item, index| hash[item] = index }
 puts hash
-puts '\n'
+puts "\n"
 
 puts '*' * 50
 puts "my count \n"
 puts days_of_the_week.my_count
-puts '\n'
+puts "\n"
 
 puts '*' * 50
 puts "multiply_els([2,4,5]) \n"
 puts multiply_els([2, 4, 5])
-puts '\n'
+puts "\n"
