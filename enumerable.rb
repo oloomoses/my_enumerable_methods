@@ -22,7 +22,7 @@ module Enumerable
         result << element        
       end
     end
-    puts result
+    result
   end
 
   def my_all?
@@ -34,7 +34,7 @@ module Enumerable
         result = true if element
       end
     end    
-    puts result
+    result
   end
   
   def my_count(arg = nil)
@@ -48,7 +48,7 @@ module Enumerable
         count += 1 if element
       end
     end
-    puts count
+   count
   end
 
   def my_any?
@@ -60,7 +60,7 @@ module Enumerable
         result = true if element || self[]
       end
     end
-    puts result
+    result
   end
 
   def my_none?
@@ -72,7 +72,7 @@ module Enumerable
         result = false if element
       end
     end
-    puts result 
+    result 
   end
 
   def my_map(&block)
@@ -84,22 +84,19 @@ module Enumerable
     retult
   end
 
-  def my_inject(initial = 0, operand = nil)
-    
-    my_each do |element|
-      if block_given?
-        initial = yield(initial, element)
-      elsif initial && operand
-        initial = init operand element
-      end
-    end 
-    puts initial   
+  def my_inject(init = nil, operand = nil, &block)
+    block = operand.to_proc if operand.is_a?(Symbol)
+
+    block, init = init.to_proc, nil if init.is_a?(Symbol) && !operand
+
+    my_each { |element| init = init.nil? ? element : block.call(init,element)}
+    init
   end
 end
 
 array = [3, 4, 3, 2, 1]
 
-array.my_inject(2, *)
+p array.my_inject(2, :+)
 
 # longest = %w{ cat sheep bear }.my_inject do |memo, word|
 #   memo.length > word.length ? memo : word
