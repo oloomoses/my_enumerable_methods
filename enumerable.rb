@@ -96,9 +96,3 @@ end
 
 array = [3, 4, 3, 2, 1]
 
-p array.my_inject(2, :+)
-
-# longest = %w{ cat sheep bear }.my_inject do |memo, word|
-#   memo.length > word.length ? memo : word
-# end
-# longest 
