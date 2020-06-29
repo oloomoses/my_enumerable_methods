@@ -9,7 +9,7 @@ module Enumerable
       yield to_a[i] if is_a?(Range)
       yield to_a[i] if is_a?(Hash)
       i += 1
-    end    
+    end
   end
 
   def my_each_with_index
