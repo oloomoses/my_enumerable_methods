@@ -9,8 +9,7 @@ module Enumerable
       yield to_a[i] if is_a?(Range)
       yield to_a[i] if is_a?(Hash)
       i += 1
-    end
-    array
+    end    
   end
 
   def my_each_with_index
@@ -92,7 +91,7 @@ module Enumerable
       result << yield(element) unless proc
       result << proc.call(element) if proc
     end
-    retult
+    result
   end
 
   def my_inject(init = nil, operand = nil, &block)
